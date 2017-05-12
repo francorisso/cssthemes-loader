@@ -1,7 +1,7 @@
 {
-  "name": "ostypes-loader",
+  "name": "cssthemes-loader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Webpack 2 loader for making cool themes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "loader-utils": "^1.1.0",
-    "nearley": "^2.9.0"
+    "lodash": "^4.17.4"
   }
 }
