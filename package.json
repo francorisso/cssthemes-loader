@@ -4,6 +4,8 @@
   "description": "Webpack 2 loader for making cool themes",
   "main": "index.js",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint src --ext .js --ext .jsx",
+    "lint:fix": "./node_modules/.bin/eslint --fix . --ext .js --ext .jsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,5 +13,12 @@
   "dependencies": {
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3"
   }
 }
