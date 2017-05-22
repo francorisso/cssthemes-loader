@@ -25,13 +25,16 @@ function blockify(text) {
   let searchIdx = 0;
   let selector = null;
   const regexOpen = /\s*([:.#\w\s-]+)\s*\n?\{/i;
-  const blocks = { [NODECONTENT_KEY]: [] };
+  const blocks = { [NODECONTENT_KEY]: {} };
   while ((selector = regexOpen.exec(text.slice(searchIdx))) !== null) {
     const preText = text.slice(searchIdx, selector.index).trim();
     if (preText) {
       const rules = preText.split(';');
       for (const rule of rules) {
-        if (rule.trim().length) blocks[NODECONTENT_KEY].push(rule);
+        if (rule.trim().length) {
+          const [ruleLabel, ruleVal] = rule.split(':');
+          blocks[NODECONTENT_KEY][ruleLabel.trim()] = ruleVal.trim();
+        }
       }
     }
 
@@ -48,11 +51,14 @@ function blockify(text) {
   if (postText) {
     const rules = postText.split(';');
     for (const rule of rules) {
-      if (rule.trim().length) blocks[NODECONTENT_KEY].push(rule);
+      if (rule.trim().length) {
+        const [ruleLabel, ruleVal] = rule.split(':');
+        blocks[NODECONTENT_KEY][ruleLabel.trim()] = ruleVal.trim();
+      }
     }
   }
 
-  if (blocks[NODECONTENT_KEY].length === 0) {
+  if (_.isEmpty(blocks[NODECONTENT_KEY])) {
     delete blocks[NODECONTENT_KEY];
   }
 
@@ -97,7 +103,6 @@ function labelify(text, selector) {
 }
 
 function buildCssFromJs(obj) {
-    // console.log('**********************************\n\n\n', obj);
   let text = '';
   for (const key in (obj || {})) {
     if (key !== NODECONTENT_KEY) {
@@ -105,7 +110,10 @@ function buildCssFromJs(obj) {
       text += `\t${buildCssFromJs(obj[key])}\n`;
       text += '}\n\n';
     } else {
-      text += `${obj[key].join(';')};\n`;
+      const rules = _.toPairs(obj[key])
+        .map(([prop, val]) => `${prop}: ${val}`)
+        .join(';');
+      text += `${rules};\n`;
     }
   }
 
@@ -120,9 +128,6 @@ function mergeStyles(target, toMerge) {
 
 module.exports = ({ text, target, ignore }) => {
   let updatedText = text;
-  if (!text || !target) {
-    return text;
-  }
 
   for (const iKey of (ignore || [])) {
     const iKeyPos = getTargetPos(updatedText, iKey);
