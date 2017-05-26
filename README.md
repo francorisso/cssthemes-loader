@@ -9,10 +9,18 @@ The current scenario force us to update our components to make them aware of the
 This is where this loader comes handy, the idea is to create the themes in our css or sass file, and then the loader will take care of including the correct css rules
 
 
-## Setup in 2 steps
+## Setup in 3 steps
 
 Let's assume you have 3 different builds: css, android, web.
 From the component side, no change to be made, just use it as you regular use css-modules.
+
+### Step 0: install it
+
+You can clone the repository or just use npm:
+
+```bash
+npm install cssthemes-loader --save-dev
+```
 
 ### Step 1: setup webpack's config file
 
