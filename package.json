@@ -1,6 +1,6 @@
 {
   "name": "cssthemes-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Webpack 2 loader for making cool themes",
   "main": "index.js",
   "scripts": {
@@ -24,5 +24,9 @@
     "mocha": "^3.4.1"
   },
   "keywords": ["webpack", "webpack-loaders", "css-modules"],
-  "homepage": "https://github.com/francorisso/cssthemes-loader"
+  "homepage": "https://github.com/francorisso/cssthemes-loader",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/francorisso/cssthemes-loader"
+  }
 }
